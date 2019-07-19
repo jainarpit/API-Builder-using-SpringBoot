@@ -17,6 +17,7 @@ public class UserPasswordService {
     }
 
     public boolean updatePassword(UserData userData, Long id) {
+
         if (canChangePassword(userData.getPassword(), id)) {
             userRepository.findById(id)
                     .map(user -> {
@@ -35,12 +36,13 @@ public class UserPasswordService {
     }
 
     private boolean canChangePassword(String password, Long id) {
-        Optional<UserData> mayBeUser = userRepository.findById(id);
-        if (mayBeUser.isPresent()) {
-            if (mayBeUser.get().getPassword().equals(password)) return false;
+        Optional<UserData> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            if (user.get().getPassword().equals(password))
+                return false;
         }
-        return passwordRuleValidator.isValid(password);
 
+        return passwordRuleValidator.isValid(password);
     }
 }
 
