@@ -8,9 +8,11 @@ import java.util.List;
 @RestController
 public class UserController {
     private final UserRepository userRepository;
+    private final UserPasswordService userPasswordService;
 
-    UserController(UserRepository userRepository) {
+    UserController(UserRepository userRepository, UserPasswordService userPasswordService) {
         this.userRepository = userRepository;
+        this.userPasswordService = userPasswordService;
     }
 
     @GetMapping("/users")
@@ -25,6 +27,6 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     boolean changePassword(@RequestBody @Valid UserData userData, @PathVariable Long id) {
-        return true; //TODO:: add a service method call to do password validation
+        return userPasswordService.updatePassword(userData,id);
     }
 }
