@@ -25,8 +25,8 @@ public class UserController {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @PutMapping("/user/{id}")
-    boolean changePassword(@RequestBody @Valid UserData userData, @PathVariable Long id) {
+    @PutMapping("/users/{id}")
+    boolean replacePassword(@RequestBody @Valid UserData userData, @PathVariable Long id) {
         return userPasswordService.updatePassword(userData,id);
     }
 }
