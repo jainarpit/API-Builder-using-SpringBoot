@@ -1,5 +1,9 @@
 package com.example.userservice;
 
+import net.ricecode.similarity.JaroStrategy;
+import net.ricecode.similarity.SimilarityStrategy;
+import net.ricecode.similarity.StringSimilarityService;
+import net.ricecode.similarity.StringSimilarityServiceImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -36,10 +40,15 @@ public class UserPasswordService {
     }
 
     private boolean canChangePassword(String password, Long id) {
+        SimilarityStrategy strategy = new JaroStrategy();
         Optional<UserData> user = userRepository.findById(id);
-        if (user.isPresent()) {
-            if (user.get().getPassword().equals(password))
-                return false;
+        String oldPassword = user.get().getPassword();
+        String newPassword = password;
+        StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
+        double score = service.score(oldPassword,newPassword);
+        if(score>0.8)
+        {
+            return false;
         }
 
         return passwordRuleValidator.isValid(password);

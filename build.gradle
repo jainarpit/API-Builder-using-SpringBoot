@@ -27,4 +27,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	compile group: 'org.passay', name: 'passay', version: '1.4.0'
+	compile group: 'net.ricecode', name: 'string-similarity', version: '1.0.0'
+
 }
