@@ -13,7 +13,7 @@ public class PasswordRuleValidator {
             new RepeatCharacterRegexRule(5)
     );
 
-    public boolean isValid(String password) {
-        return passwordValidator.validate(new PasswordData(password)).isValid();
+    public boolean isValid(String newPassword) {
+        return passwordValidator.validate(new PasswordData(newPassword)).isValid();
     }
 }
