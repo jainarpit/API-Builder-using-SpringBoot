@@ -1,5 +1,6 @@
 package com.example.userservice;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -8,13 +9,24 @@ import javax.persistence.Id;
 
 @Data
 @Entity
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserData {
 
     private @Id
     @GeneratedValue
     Long id;
     private String username;
-    private String password;
+    private String currentPassword;
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    private String newPassword;
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
 
     public String getUsername() {
         return username;
@@ -24,20 +36,21 @@ public class UserData {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getCurrentPassword() {
+        return currentPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCurrentPassword(String currentPassword) {
+        this.currentPassword = currentPassword;
     }
 
     UserData() {
     }
 
-    UserData(String username, String password) {
+    UserData(String username, String currentPassword,String newPassword) {
         this.username = username;
-        this.password = password;
+        this.currentPassword = currentPassword;
+        this.newPassword = newPassword;
     }
 
     public void setId(Long id) {
