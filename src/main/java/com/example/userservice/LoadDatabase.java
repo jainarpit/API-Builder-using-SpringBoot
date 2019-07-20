@@ -13,8 +13,8 @@ class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository) {
         return args -> {
-            userRepository.save(new UserData("Bilbo Baggins", "burglar"));
-            userRepository.save(new UserData("Frodo Baggins", "thief"));
+            userRepository.save(new UserData("Bilbo Baggins", "burglar",null));
+            userRepository.save(new UserData("Frodo Baggins", "thief",null));
         };
     }
 }
