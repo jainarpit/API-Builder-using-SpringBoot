@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -26,7 +27,21 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    boolean replacePassword(@RequestBody @Valid UserData userData, @PathVariable Long id) {
-        return userPasswordService.updatePassword(userData,id);
+    boolean updatePassword(@RequestBody @Valid UserData userData, @PathVariable Long id) {
+        String oldPassword = userData.getCurrentPassword();
+        String newPassword = userData.getNewPassword();
+        Optional<UserData> user = userRepository.findById(id);
+        boolean isUserPresent = userRepository.findById(id).isPresent();
+        if (!isUserPresent) {
+            userData.setId(id);
+            userData.setNewPassword(null);
+            userRepository.save(userData);
+            return true;
+        }
+        String oldPasswordInDb = user.get().getCurrentPassword();
+        if (oldPassword.equals(oldPasswordInDb)) {
+            return userPasswordService.changePassword(oldPassword, newPassword, id);
+        } else
+            return false;
     }
 }
