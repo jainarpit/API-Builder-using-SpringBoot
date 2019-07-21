@@ -47,7 +47,7 @@ public class UserData {
     UserData() {
     }
 
-    UserData(String username, String currentPassword,String newPassword) {
+    UserData(String username, String currentPassword, String newPassword) {
         this.username = username;
         this.currentPassword = currentPassword;
         this.newPassword = newPassword;
@@ -55,5 +55,9 @@ public class UserData {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
