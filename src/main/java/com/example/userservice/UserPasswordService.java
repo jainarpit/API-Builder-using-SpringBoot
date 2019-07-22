@@ -18,7 +18,7 @@ public class UserPasswordService {
         this.passwordRuleValidator = passwordRuleValidator;
     }
 
-    public boolean isPasswordDifferent(String oldPassword, String newPassword) {
+    private boolean isPasswordDifferent(String oldPassword, String newPassword) {
         SimilarityStrategy strategy = new JaroStrategy();
         StringSimilarityService service = new StringSimilarityServiceImpl(strategy);
         double score = service.score(oldPassword, newPassword);
@@ -28,7 +28,7 @@ public class UserPasswordService {
             return true;
     }
 
-    public boolean canChangePassword(String oldPassword, String newPassword) {
+    private boolean canChangePassword(String oldPassword, String newPassword) {
         boolean isSimilar = isPasswordDifferent(oldPassword, newPassword);
         boolean isPasswordValid = passwordRuleValidator.isValid(newPassword);
         return isSimilar && isPasswordValid;

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Optional;
 
@@ -23,7 +22,6 @@ public class SpringBootJPAIntegrationTest {
     public void givenUserRepositoryWhenSaveAndRetrieveEntityThenStatusShouldBeOK() {
         UserData userData = userRepository.save(new UserData("username", "oldPassword", "newPassword"));
         Optional<UserData> foundEntity = userRepository.findById(userData.getId());
-
         assertNotNull(foundEntity);
         assertEquals(userData.getId(), foundEntity.get().getId());
     }
