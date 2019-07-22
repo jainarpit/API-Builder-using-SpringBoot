@@ -41,11 +41,13 @@ You can get the docker image by running <br>
 2. If user wants to sign up , make a "POST" request with json body having username and currentPassword attributes. In the headers, a "id" is generated which can be used as path parameter while making a /GET or /PUT request. <br>
 3. If user wants to see his details, make a "GET" request by hitting "/user/{id}" <br> 
 4. If user wants to change his password, make a "PUT" request by hitting "/user/{id}" and request json body having username,currentPassword and newPassword attributes. <br> 
+5. Also, for Password similarity Checking, currently we are using JaroDistance algorith which is provided by the dependency mentioned in the acknowledgment section <br>
 
 ### Future Work
 1. Adding validation on number of characters to be not more than 50% of total password.
 2. Throw Proper Error Message in case of 500 Internal Server Error
 3. Adding proper controller level test
+4. To implement our own Similarity Checker
 
 ### Acknowledgment:
 1. rrice/java-string-similarity for similarity checker
