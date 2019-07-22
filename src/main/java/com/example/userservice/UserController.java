@@ -31,6 +31,7 @@ public class UserController {
     @PostMapping("/user")
     ResponseEntity<Object> newUser(@RequestBody UserData userData) {
         HttpHeaders head = new HttpHeaders();
+        userData.setNewPassword(null);
         String id = (userRepository.save(userData).getId()).toString();
         head.set("id", id);
         return ResponseEntity.ok()
@@ -43,13 +44,6 @@ public class UserController {
         String oldPassword = userData.getCurrentPassword();
         String newPassword = userData.getNewPassword();
         Optional<UserData> user = userRepository.findById(id);
-        boolean isUserPresent = userRepository.findById(id).isPresent();
-        if (!isUserPresent) {
-            userData.setId(id);
-            userData.setNewPassword(null);
-            userRepository.save(userData);
-            return true;
-        }
         String oldPasswordInDb = user.get().getCurrentPassword();
         if (oldPassword.equals(oldPasswordInDb)) {
             return userPasswordService.changePassword(oldPassword, newPassword, id);

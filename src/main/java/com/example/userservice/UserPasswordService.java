@@ -38,6 +38,7 @@ public class UserPasswordService {
         if (canChangePassword(oldPassword, newPassword)) {
             userRepository.findById(id).map(user -> {
                 user.setCurrentPassword(newPassword);
+                user.setNewPassword(null);
                 return userRepository.save(user);
             }).orElseGet(() -> {
                 throw new RuntimeException("User Does not exist");
