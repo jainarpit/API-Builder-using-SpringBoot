@@ -20,15 +20,15 @@ You will need following to run this application:
 http://localhost:8080
 
 ###Endpoint
-1. /users
-2. /users/{id}
-
+1. /user
+2. /user/{id}
 
 ###HTTP methods Supported
 
 1. GET
 2. PUT
-3. DELETE
+3. POST
+4. DELETE
 
 ###Docker Support:
 You can get the docker image by running <br>
