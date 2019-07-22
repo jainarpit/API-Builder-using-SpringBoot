@@ -32,7 +32,7 @@ http://localhost:8080
 
 ### Docker Support:
 You can get the docker image by running <br>
-``docker pull jarpit/assignment:v2``
+``docker pull jarpit/assignment:v3``
 
 
 ### Future Work
