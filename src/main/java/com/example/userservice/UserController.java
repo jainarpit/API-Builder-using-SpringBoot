@@ -1,5 +1,7 @@
 package com.example.userservice;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,17 +18,27 @@ public class UserController {
         this.userPasswordService = userPasswordService;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/user")
     List<UserData> all() {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/{id}")
+    @GetMapping("/user/{id}")
     UserData oneUser(@PathVariable Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @PutMapping("/users/{id}")
+    @PostMapping("/user")
+    ResponseEntity<Object> newUser(@RequestBody UserData userData) {
+        HttpHeaders head = new HttpHeaders();
+        String id = (userRepository.save(userData).getId()).toString();
+        head.set("id", id);
+        return ResponseEntity.ok()
+                .headers(head)
+                .body("");
+    }
+
+    @PutMapping("/user/{id}")
     boolean updatePassword(@RequestBody @Valid UserData userData, @PathVariable Long id) {
         String oldPassword = userData.getCurrentPassword();
         String newPassword = userData.getNewPassword();
@@ -43,5 +55,10 @@ public class UserController {
             return userPasswordService.changePassword(oldPassword, newPassword, id);
         } else
             return false;
+    }
+
+    @DeleteMapping("/user/{id}")
+    void deleteEmployee(@PathVariable Long id) {
+        userRepository.deleteById(id);
     }
 }
