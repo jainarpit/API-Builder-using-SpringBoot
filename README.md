@@ -34,7 +34,8 @@ Note: Please make sure port 8080 is free
 
 ### Docker Support:
 You can get the docker image by running <br>
-``docker pull jarpit/assignment:v3``
+``docker pull jarpit/assignment:v3`` <br> 
+`` docker run -p 8080:8080 jarpit/assignment:v3 ``
 
 ### Current Features:
 1. By Default when application starts, few data is loaded in h2 database, (as of now 2 entries).<br>
