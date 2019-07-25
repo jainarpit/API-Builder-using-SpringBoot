@@ -1,5 +1,5 @@
 # Project Title
-This project provides service to validate and change user password
+This project provides service to validate and change user password. It validates if the new password follows the pattern.
 
 ## Getting Started
 The project is hosted on github.
@@ -40,6 +40,7 @@ You can get the docker image by running <br>
 ### Current Features:
 1. By Default when application starts, few data is loaded in h2 database, (as of now 2 entries).<br>
 2. If user wants to sign up , make a "POST" request with json body having username and currentPassword attributes. In the headers, a "id" is generated which can be used as path parameter while making a /GET or /PUT request. <br>
+Also, there is no password pattern/criteria for creating a new user.
 3. If user wants to see his details, make a "GET" request by hitting "/user/{id}" <br> 
 4. If user wants to change his password, make a "PUT" request by hitting "/user/{id}" and request json body having username,currentPassword and newPassword attributes. <br> 
 5. Also, for Password similarity Checking, currently we are using JaroDistance algorith which is provided by the dependency mentioned in the acknowledgment section <br>
